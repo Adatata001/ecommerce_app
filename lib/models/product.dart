@@ -14,13 +14,18 @@ class Product {
 const products = <Product>[
   Product(
     name: "Men's Harrington Jacket",
-    image: 'assets/images/jacket.png',
+    image: 'images/man.png',
     price: 148.00,
   ),
   Product(
     name: "Max Cirro Men's Slides",
-    image: 'assets/images/slides.png',
+    image: 'images/slides.png',
     price: 55.00,
     oldPrice: 60.00,
+  ),
+    Product(
+    name: "Men's Harrington Jacket",
+    image: 'images/jacket.png',
+    price: 148.00,
   ),
 ];

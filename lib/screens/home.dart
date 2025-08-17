@@ -1,11 +1,14 @@
+import 'package:ecommerceapp/models/new_in.dart';
 import 'package:flutter/material.dart';
-import '../models/category.dart';
-import '../models/product.dart';
-import '../theme/app_theme.dart';
-import '../widgets/bottom_nav_bar.dart';
-import '../widgets/category_item.dart';
-import '../widgets/product_card.dart';
-import 'categories.dart';
+import 'package:ecommerceapp/models/category.dart';
+import 'package:ecommerceapp/models/product.dart';
+import 'package:ecommerceapp/theme/app_theme.dart';
+import 'package:ecommerceapp/widgets/bottom_nav_bar.dart';
+import 'package:ecommerceapp/widgets/category_item.dart';
+import 'package:ecommerceapp/widgets/product_card.dart';
+import 'package:ecommerceapp/screens/categories.dart';
+import 'package:ecommerceapp/widgets/new_in_card.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,32 +27,89 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const CircleAvatar(
-                    radius: 16,
-                    backgroundImage: AssetImage('assets/images/user.png'),
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundImage: AssetImage('images/user.png'),
+                    backgroundColor: AppColors.cardBorder.withValues(alpha: 0.7),
                   ),
-                  DropdownButton<String>(
-                    value: 'Men',
-                    elevation: 0,
-                    underline: const SizedBox.shrink(),
-                    items: const [
-                      DropdownMenuItem(value: 'Men', child: Text('Men')),
-                      DropdownMenuItem(value: 'Women', child: Text('Women')),
-                    ],
-                    onChanged: (_) {},
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(50),
                   ),
-                  const Icon(Icons.notifications_none),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2<String>(
+                      value: 'Men',
+                      isExpanded: false,
+                      items: const [
+                        DropdownMenuItem(value: 'Men', child: Text('Men', softWrap: false)),
+                        DropdownMenuItem(value: 'Women', child: Text('Women', softWrap: false)),
+                      ],
+                      onChanged: (value) {},
+                      dropdownStyleData: DropdownStyleData(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                        ),
+                        offset: const Offset(0, 0),
+                        padding: EdgeInsets.zero,
+                      ),
+                      buttonStyleData: ButtonStyleData(
+                        height: 36,
+                        padding: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.transparent,
+                        ),
+                      ),
+                      menuItemStyleData: const MenuItemStyleData(
+                        height: 36,
+                      ),
+                      iconStyleData: const IconStyleData(
+                        icon: Icon(Icons.keyboard_arrow_down, size: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.deepPurpleAccent,
+                    child: const Icon(
+                      Icons.shopping_bag_outlined,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: AppSpacing.l),
 
-              // search
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  prefixIcon: const Icon(Icons.search),
+           // Search bar
+           TextField(
+              decoration: InputDecoration(
+                hintText: 'Search',
+                prefixIcon: const Icon(
+                  Icons.search_rounded,
+                  size: 20,
+                ),
+                filled: true,
+                fillColor: AppColors.searchFill,
+                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none,
                 ),
               ),
+            ),
               const SizedBox(height: AppSpacing.xl),
 
               // categories header
@@ -62,11 +122,15 @@ class HomePage extends StatelessWidget {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const CategoriesPage(),
+                        builder: (ctx) => const CategoriesPage(),
                       ),
                     ),
-                    child: Text('See All',
-                        style: Theme.of(context).textTheme.labelSmall),
+                    child: Text(
+                      'See All',
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -90,7 +154,9 @@ class HomePage extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: Text('See All',
-                        style: Theme.of(context).textTheme.labelSmall),
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: Colors.black,
+                        )),
                   ),
                 ],
               ),
@@ -100,9 +166,41 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: AppSpacing.s),
                   scrollDirection: Axis.horizontal,
                   itemCount: products.length,
-                  separatorBuilder: (_, __) =>
+                  separatorBuilder: (ctx,i) =>
                       const SizedBox(width: AppSpacing.l),
-                  itemBuilder: (_, i) => ProductCard(product: products[i]),
+                  itemBuilder: (ctx, i) => ProductCard(product: products[i]),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xl),
+
+              // new in header
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'New In',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Colors.deepPurpleAccent,
+                      ),
+                    ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('See All',
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                          color: Colors.black,
+                        )),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 250,
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(top: AppSpacing.s),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: products.length,
+                  separatorBuilder: (ctx,i) =>
+                  const SizedBox(width: AppSpacing.l),
+                  itemBuilder: (ctx, i) => NewCard(new_: new_[i]),
                 ),
               ),
             ],

@@ -6,9 +6,10 @@ class Category {
 }
 
 const categories = <Category>[
-  Category(name: 'Hoodies',     image: 'assets/images/hoodie.png'),
-  Category(name: 'Accessories', image: 'assets/images/accessories.png'),
-  Category(name: 'Shorts',      image: 'assets/images/shorts.png'),
-  Category(name: 'Shoes',       image: 'assets/images/shoes.png'),
-  Category(name: 'Bag',         image: 'assets/images/bag.png'),
+  Category(name: 'Hoodies',     image: 'images/hoodies.png'),
+  Category(name: 'Shorts',      image: 'images/shorts.png'),
+  Category(name: 'Shoes',       image: 'images/shoes.png'),
+  Category(name: 'Bag',         image: 'images/bag.png'),
+  Category(name: 'Accessories', image: 'images/accessories.png'),
 ];
+

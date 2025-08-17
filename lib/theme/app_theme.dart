@@ -8,7 +8,7 @@ class AppColors {
   static const searchFill = Color(0xFFF2F2F2);
   static const hint = Color(0xFF6E6E6E);
   static const navUnselected = Color(0xFFB0B0B0);
-  static const navSelected = Color(0xFF000000);
+  static const navSelected = Colors.deepPurpleAccent;
   static const cardBorder = Color(0xFFE9E9EA);
 }
 

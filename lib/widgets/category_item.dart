@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/category.dart';
-import '../theme/app_theme.dart';
+import 'package:ecommerceapp/models/category.dart';
+import 'package:ecommerceapp/theme/app_theme.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -13,18 +13,28 @@ class CategoryItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage(category.image),
-            backgroundColor: Colors.transparent,
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.cardBorder.withValues(alpha: 0.7), // grey background
+              image: DecorationImage(
+                image: AssetImage(category.image),
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           const SizedBox(height: AppSpacing.s),
           Text(
             category.name,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Colors.black,
+                ),
           ),
         ],
       ),
     );
   }
 }
+

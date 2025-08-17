@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ecommerceapp/models/product.dart';
+import 'package:ecommerceapp/models/new_in.dart';
 import 'package:ecommerceapp/theme/app_theme.dart';
 
-class ProductCard extends StatelessWidget {
-  final Product product;
-  const ProductCard({super.key, required this.product});
+class NewCard extends StatelessWidget {
+  final New new_;
+  const NewCard({super.key, required this.new_});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
                       top: Radius.circular(AppSpacing.radius),
                     ),
                     child: Image.asset(
-                      product.image,
+                      new_.image,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -50,43 +50,26 @@ class ProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   Text(
-                      product.name,
+                    Text(
+                      new_.name,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black
-                      ),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
                       maxLines: 1,
                       overflow: TextOverflow.visible,
                       softWrap: false,
                     ),
-                    const SizedBox(height: 2),
-                     Row(
-                      children: [
-                        Text(
-                          '\$${product.price.toStringAsFixed(2)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                        ),
-                        if (product.oldPrice != null) ...[
-                          const SizedBox(width: 6),
-                          Text(
-                            '\$${product.oldPrice!.toStringAsFixed(1)}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '\$${new_.price.toStringAsFixed(2)}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
                           ),
-                        ],
-                      ],
                     ),
                   ],
                 ),
